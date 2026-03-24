@@ -1,0 +1,12 @@
+# Build outputs
+build/
+Debug/
+Release/
+*.o
+*.elf
+*.bin
+*.map
+
+# OS files
+.DS_Store
+Thumbs.db
