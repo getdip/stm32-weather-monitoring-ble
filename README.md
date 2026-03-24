@@ -32,52 +32,6 @@ This project demonstrates low-level driver development, interrupt-driven communi
 
 ---
 
-## 📁 Project Structure
-/
-├── inc/
-│ ├── command_parser.h
-│ ├── format_utils.h
-│ ├── bme280.h
-│ ├── ds1307.h
-│ ├── hm10.h
-│ ├── lcd.h
-│ ├── stm32f407xx.h
-│ ├── stm32f407xx_i2c_driver.h
-│ ├── stm32f407xx_usart_driver.h
-│ ├── stm32f407xx_gpio_driver.h
-│ ├── stm32f407xx_rcc_driver.h
-│
-├── src/
-│ ├── application/
-│ │ ├── app.c
-│ │ ├── command_parser.c
-│ │ ├── format_utils.c
-│ │ ├── syscalls.c
-│ │ ├── sysmem.c
-│ │
-│ ├── bsp/
-│ │ ├── bme280.c
-│ │ ├── ds1307.c
-│ │ ├── hm10.c
-│ │ ├── lcd.c
-│ │
-│ ├── drivers/
-│ ├── i2c_driver.c
-│ ├── stm32f407xx_gpio_driver.c
-│ ├── stm32f407xx_rcc_driver.c
-│ ├── stm32f407xx_usart_driver.c
-│
-├── linker/
-│ ├── STM32F407VGTX_FLASH.ld
-│ ├── STM32F407VGTX_RAM.ld
-│
-├── startup/
-│ ├── startup_stm32f407vgtx.s
-│
-├── .gitignore
-├── README.md
-
-
 ## ⚙️ System Architecture
 
 The project follows a **layered architecture**:
