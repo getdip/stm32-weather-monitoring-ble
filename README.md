@@ -32,6 +32,7 @@ This project demonstrates low-level driver development, interrupt-driven communi
 
 ---
 
+<<<<<<< HEAD
 ## 📁 Project Structure
 /
 ├── inc/
@@ -78,6 +79,8 @@ This project demonstrates low-level driver development, interrupt-driven communi
 ├── README.md
 
 
+=======
+>>>>>>> d75dd0715f0941e16c502898ebce503d147c5e12
 ## ⚙️ System Architecture
 
 The project follows a **layered architecture**:
@@ -236,4 +239,8 @@ Suggestions and improvements are welcome!
 
 ## 📬 Contact
 
+<<<<<<< HEAD
 Feel free to connect if you're working on similar embedded systems or have feedback.
+=======
+Feel free to connect if you're working on similar embedded systems or have feedback.
+>>>>>>> d75dd0715f0941e16c502898ebce503d147c5e12
