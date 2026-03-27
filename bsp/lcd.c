@@ -7,23 +7,31 @@
 
 
 #include "lcd.h"
-
-static void mdelay(uint64_t x)
+extern uint32_t tick_count;
+static void mdelay(uint32_t x)
 {
-	for(uint64_t i=0 ; i < (x * 1000); i++);
+	uint32_t tick_x;
+	tick_x = tick_count;
+
+	while((tick_count - tick_x)<x);
+
 }
 
-static void udelay(uint64_t x)
+static void udelay(uint32_t x)
 {
-	for(uint64_t i=0 ; i < (x * 1); i++);
+	uint32_t tick_x;
+	tick_x = get_current_count(TIM6);
+
+	while((get_current_count(TIM6) - tick_x)<x);
+
 }
 
 static void lcd_pulse(){
 
 	GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_GPIO_EN, GPIO_PIN_SET);
-	udelay(10);
+	udelay(1);
 	GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_GPIO_EN, GPIO_PIN_RESET);
-	udelay(50);
+	udelay(100);
 }
 
 static void data_write(uint8_t data){
@@ -125,6 +133,8 @@ void lcd_ins(uint8_t ins){
 	/*4 bit mode - Send the upper nibble followed by the lower nibble*/
 	data_write(((ins>>4)&0x0F));
 	data_write(ins & 0x0F);
+
+	udelay(50);
 }
 
 void lcd_disp_byte(uint8_t byte,uint8_t line,uint8_t pos){

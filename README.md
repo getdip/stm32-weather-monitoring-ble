@@ -35,14 +35,14 @@ This project demonstrates low-level driver development, interrupt-driven communi
 
 The project follows a **layered architecture**:
 
-- **Application Layer (`/src/application`)**
+- **Application Layer (`/src`)**
   - Core logic, state machine, command parsing
   - Includes system call interface (`syscalls.c`, `sysmem.c`)
 
-- **BSP Layer (`/src/bsp`)**
+- **BSP Layer (`/bsp`)**
   - Sensor and peripheral abstraction (BME280, DS1307, HM-10, LCD)
 
-- **Driver Layer (`/src/drivers`)**
+- **Driver Layer (`/Drivers`)**
   - Register-level peripheral drivers (GPIO, I2C, USART, RCC)
 
 ---
@@ -88,6 +88,7 @@ Commands are received via BLE (HM-10) using `#` as delimiter.
 
 - Invalid formats for date and time commands, revert to default values
 - Command parser supports continuous input stream
+- 1 sec of timeout for command 
 
 ---
 

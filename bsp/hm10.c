@@ -37,8 +37,8 @@ void hm10_USART_pin_config(){
 	GPIO_Handle_t USART_GPIO;
 
 	/*Pin description
-	 * TX --> PA9
-	 * RX --> PA10
+	 * TX --> PA2
+	 * RX --> PA3
 	 * */
 
 	USART_GPIO.pGPIOx = HM10_USART_GPIO_PORT;

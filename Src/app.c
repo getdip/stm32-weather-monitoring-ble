@@ -29,7 +29,7 @@ static wData env_data;
 /*SysTick Timer*/
 volatile uint8_t timer_tick_enable;
 volatile static uint8_t tick_flag;
-volatile static uint32_t tick_count;
+volatile  uint32_t tick_count;
 volatile static uint32_t cmd_first_byte_time;
 volatile static uint32_t tick_count_sec;
 volatile static uint32_t tick_x;
@@ -92,6 +92,30 @@ void init_systick_timer(uint32_t tick_hz)
 
     //enable the systick
     *SYST_CSR_ADDR |= ( 1 << 0);
+}
+
+void Basic_TIMx_init(Basic_TIM_RegDef_t* TIMx){
+
+	uint32_t pscl_value = (SYSTICK_TIM_CLK / 1000000) - 1;
+	if(TIMx == TIM6){
+		TIM6_PCLK_EN();
+	}
+
+	else if(TIMx == TIM7){
+		TIM7_PCLK_EN();
+	}
+
+	TIMx->TIM_PSC = pscl_value;
+	TIMx->TIM_ARR = 0XFFFF;
+	TIMx->TIM_CR1 |=(1<<0);
+}
+
+uint16_t get_current_count(Basic_TIM_RegDef_t* TIMx){
+	Basic_TIM_RegDef_t* temp_TIMx;
+	if ((TIMx == TIM6) || (TIMx == TIM7)){
+		temp_TIMx = TIMx;
+	}
+	return temp_TIMx->TIM_CNT;
 }
 
 /*ACTIVE state API*/
@@ -219,6 +243,11 @@ void hm10_uart_IDLE(){
 	}
 }
 
+/*void mdelay_app(uint64_t x)
+{
+	for(uint64_t i=0 ; i < (x * 1000); i++);
+}*/
+
 
 int main (void)
 {
@@ -231,8 +260,13 @@ int main (void)
 	/*Configure SysTick TImer for 1 sec tick*/
 	init_systick_timer(1000);
 
+	/*Configure Timer-6 (Basic Timer)*/
+	Basic_TIMx_init(TIM6);
+
 	/*Enable UART peripheral interrupt to NVIC*/
 	USART_IRQInterruptConfig(IRQ_NO_USART2,ENABLE);
+
+	//mdelay_app(100);
 
 	/*Initialize LCD*/
 	lcd_init();

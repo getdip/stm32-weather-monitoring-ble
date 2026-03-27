@@ -15,7 +15,7 @@ void lcd_init(void);
 void lcd_ins(uint8_t);
 void lcd_disp_byte(uint8_t,uint8_t,uint8_t);
 void lcd_disp_string(char*,uint8_t,uint8_t);
-
+uint16_t get_current_count(Basic_TIM_RegDef_t*);
 
 
 

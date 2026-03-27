@@ -95,6 +95,9 @@
 #define GPIOH_BASEADDR			(AHB1PERIPH_BASEADDR + 0x1C00)
 #define GPIOI_BASEADDR			(AHB1PERIPH_BASEADDR + 0x2000)
 
+#define TIM2_BASEADDR			(APB1PERIPH_BASEADDR + 0x0000)
+#define TIM6_BASEADDR			(APB1PERIPH_BASEADDR + 0x1000)
+#define TIM7_BASEADDR			(APB1PERIPH_BASEADDR + 0x1400)
 
 #define I2C1_BASEADDR			(APB1PERIPH_BASEADDR + 0x5400)
 #define I2C2_BASEADDR			(APB1PERIPH_BASEADDR + 0x5800)
@@ -115,6 +118,8 @@
 #define USART6_BASEADDR			(APB2PERIPH_BASEADDR + 0X1400)
 #define EXTI_BASEADDR			(APB2PERIPH_BASEADDR + 0X3C00)
 #define SYSCFG_BASEADDR			(APB2PERIPH_BASEADDR + 0X3800)
+
+
 
 
 #define	RCC_BASEADDR			(AHB1PERIPH_BASEADDR + 0x3800)
@@ -227,9 +232,6 @@ typedef struct
 
 #define RCC ((RCC_RegDef_t*)RCC_BASEADDR)
 
-
-
-
 /*
  * STRUCTURE FOR SPI REGISTER
  */
@@ -301,6 +303,27 @@ typedef struct
 #define UART5  				((USART_RegDef_t*)UART5_BASEADDR)
 #define USART6  			((USART_RegDef_t*)USART6_BASEADDR)
 
+/*REGISTER DEFINITION FOR BASIC TIMERS (TIM6 - TIM7)
+ */
+
+typedef struct{
+	volatile uint32_t TIM_CR1;
+	volatile uint32_t TIM_CR2;
+			 uint32_t RESERVED1;
+	volatile uint32_t TIM_DIER;
+	volatile uint32_t TIM_SR;
+	volatile uint32_t TIM_EGR;
+			 uint32_t RESERVED2;
+			 uint32_t RESERVED3;
+			 uint32_t RESERVED4;
+	volatile uint32_t TIM_CNT;
+	volatile uint32_t TIM_PSC;
+	volatile uint32_t TIM_ARR;
+}Basic_TIM_RegDef_t;
+
+#define TIM6 ((Basic_TIM_RegDef_t*)TIM6_BASEADDR)
+#define TIM7 ((Basic_TIM_RegDef_t*)TIM7_BASEADDR)
+
 //Macro for clock enable for GPIOs
 
 #define	GPIOA_PCLK_EN()	(RCC -> AHB1ENR |=(1<<0))
@@ -347,14 +370,11 @@ typedef struct
 #define	I2C2_PCLK_EN()	(RCC -> APB1ENR |=(1<<22))
 #define	I2C3_PCLK_EN()	(RCC -> APB1ENR |=(1<<23))
 
-
 //Macro for clock enable of SPIs
-
 #define	SPI1_PCLK_EN()	(RCC -> APB2ENR |=(1<<12))
 #define	SPI2_PCLK_EN()	(RCC -> APB1ENR |=(1<<14))
 #define	SPI3_PCLK_EN()	(RCC -> APB1ENR |=(1<<15))
 #define	SPI4_PCLK_EN()	(RCC -> APB2ENR |=(1<<13))
-
 
 //Macro for clock enable of UsARTs
 #define	USART1_PCLK_EN()	(RCC -> APB2ENR |=(1<<4))
@@ -364,12 +384,12 @@ typedef struct
 #define	UART5_PCLK_EN()		(RCC -> APB1ENR |=(1<<20))
 #define	USART6_PCLK_EN()	(RCC -> APB1ENR |=(1<<5))
 
-
 //Macro for clock enable for SYSCFG peripheral
-
 #define	SYSCFG_PCLK_EN()	(RCC -> APB1ENR |=(1<<14))
 
-
+//Macro for clock enable of Basic Timers (TIM6 -TIM7)
+#define TIM6_PCLK_EN()		(RCC-> APB1ENR |= (1<<4))
+#define TIM7_PCLK_EN()		(RCC-> APB1ENR |= (1<<5))
 
 //clock disable macro for SPIx
 
@@ -393,7 +413,6 @@ typedef struct
 #define	UART4_PCLK_DI()		(RCC -> APB1ENR &=(~(1<<19)))
 #define	UART5_PCLK_DI()		(RCC -> APB1ENR &=(~(1<<20)))
 #define	USART6_PCLK_DI()	(RCC -> APB1ENR &=(~(1<<5)))
-
 
 
 //clock disable macro for SYSCFGx
